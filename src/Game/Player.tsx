@@ -10,5 +10,5 @@ type Props = {
 }
 
 export const Player: FC<Props> = ({ position }) => {
-  return <div className="player" style={{ top: `${position.x}px`, left: `${position.x}px` }} />
+  return <div className="player" style={{ top: `${position.y}px`, left: `${position.x}px` }} />
 }
