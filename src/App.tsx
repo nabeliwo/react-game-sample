@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
 
-function App() {
+import { Game } from './Game'
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <GlobalStyle />
+      <Game />
+    </>
+  )
 }
 
-export default App;
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+
+  html {
+    font-size: 62.5%;
+  }
+  body {
+    word-wrap: break-word;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Helvetica Neue, Hiragino Sans, Hiragino Kaku Gothic ProN, ヒラギノ角ゴ ProN W3, Meiryo, メイリオ, sans-serif;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  img {
+    vertical-align: middle;
+  }
+  input, button, textarea {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    background-color: inherit;
+    color: inherit;
+  }
+`
