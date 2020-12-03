@@ -2,13 +2,13 @@ import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import reset from 'styled-reset'
 
-import { Game } from './Game'
+import { GameRoot } from './Game/GameRoot'
 
 export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Game />
+      <GameRoot />
     </>
   )
 }
