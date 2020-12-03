@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import styled, { css } from 'styled-components'
 
 export type Position = {
   x: number
@@ -11,16 +10,5 @@ type Props = {
 }
 
 export const Player: FC<Props> = ({ position }) => {
-  return <Wrapper x={position.x} y={position.y} />
+  return <div className="player" style={{ top: `${position.x}px`, left: `${position.x}px` }} />
 }
-
-const Wrapper = styled.div<Position>`
-  ${({ x, y }) => css`
-    position: absolute;
-    top: ${y}px;
-    left: ${x}px;
-    width: 20px;
-    height: 20px;
-    background-color: #000;
-  `}
-`
