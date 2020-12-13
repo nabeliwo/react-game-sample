@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { App } from './App'
+import { Scene } from './game/Scene'
 
 const setGlobalKeydownEvent = () => {
   window.isKeyDown = {}
@@ -16,7 +16,7 @@ const setGlobalKeydownEvent = () => {
 const startApplication = () => {
   ReactDOM.render(
     <React.StrictMode>
-      <App />
+      <Scene />
     </React.StrictMode>,
     document.getElementById('root'),
   )

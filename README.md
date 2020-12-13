@@ -1,1 +1,1 @@
-# react-pacman
+# react-game-sample

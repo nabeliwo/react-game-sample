@@ -1,11 +1,10 @@
 {
-  "name": "react-pacman",
+  "name": "react-game-sample",
   "version": "0.1.0",
   "license": "MIT",
   "dependencies": {
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-fps-stats": "^0.1.3"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
