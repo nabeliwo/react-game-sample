@@ -1,4 +1,5 @@
 interface Window {
+  isMouseDown: boolean
   isKeyDown: {
     [key: string]: boolean
   }

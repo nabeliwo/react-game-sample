@@ -1,8 +1,8 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { SceneName } from '../../type'
-import { useFpsStats } from '../state/useFpsStats'
-import { useGameState } from '../state/useGameState'
+import { bulletSize } from '../../constants'
+import { GameState, initialGameState, updateGameState } from '../state/gameState'
 
 const MS_PER_FRAME = 15
 
@@ -11,18 +11,14 @@ type Props = {
 }
 
 export const Stage: FC<Props> = ({ onClickChangeScene }) => {
-  const { fps, updateFps } = useFpsStats()
-  const { gameState, updateGameState } = useGameState()
-  const { player } = gameState
+  const [gameState, setGameState] = useState<GameState>(initialGameState)
+  const { frameTime, player, bullets, enemies } = gameState
 
   useEffect(() => {
-    console.log(onClickChangeScene)
     let timerID: number
 
     function step() {
-      updateFps()
-      updateGameState()
-
+      setGameState((current) => updateGameState(current))
       timerID = window.setTimeout(step, MS_PER_FRAME)
     }
 
@@ -32,22 +28,37 @@ export const Stage: FC<Props> = ({ onClickChangeScene }) => {
       clearTimeout(timerID)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [onClickChangeScene])
 
   return (
     <>
-      <div id="stage" className="scene">
-        <div
-          className="player"
-          style={{ top: player.position.y, left: player.position.x, transform: `rotate(${player.angle}deg)` }}
-        />
-        {/* <p className="title">stage</p>
+      <div
+        className="player"
+        style={{ top: player.position.y, left: player.position.x, transform: `rotate(${player.angle}deg)` }}
+      />
+
+      <ul>
+        {bullets.map((bullet, i) => (
+          <li
+            key={i}
+            className="bullet"
+            style={{ top: bullet.position.y, left: bullet.position.x, width: bulletSize, height: bulletSize }}
+          />
+        ))}
+      </ul>
+
+      <ul>
+        {enemies.map((enemy, i) => (
+          <li key={i} className="enemy" style={{ top: enemy.position.y, left: enemy.position.x }} />
+        ))}
+      </ul>
+
+      {/* <p className="title">stage</p>
       <button className="button" onClick={() => onClickChangeScene('result')}>
         Go to stage
       </button> */}
-      </div>
 
-      <p className="fps">{fps} FPS</p>
+      <p className="fps">{frameTime.fps} FPS</p>
     </>
   )
 }

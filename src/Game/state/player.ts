@@ -1,29 +1,28 @@
-export type Player = {
-  position: { x: number; y: number }
-  angle: number
-}
+import { Character } from '../../type'
 
-const updatePosition = (position: Player['position']) => {
-  const currentPosition = { ...position }
+export type Player = Character
+
+const updatePosition = (currentPosition: Player['position']) => {
+  const position = { ...currentPosition }
   const { isKeyDown } = window
 
   if (isKeyDown.key_Up || isKeyDown.key_ArrowUp || isKeyDown.key_w) {
-    currentPosition.y = currentPosition.y - 1
+    position.y = position.y - 1
   }
 
   if (isKeyDown.key_Right || isKeyDown.key_ArrowRight || isKeyDown.key_d) {
-    currentPosition.x = currentPosition.x + 1
+    position.x = position.x + 1
   }
 
   if (isKeyDown.key_Down || isKeyDown.key_ArrowDown || isKeyDown.key_s) {
-    currentPosition.y = currentPosition.y + 1
+    position.y = position.y + 1
   }
 
   if (isKeyDown.key_Left || isKeyDown.key_ArrowLeft || isKeyDown.key_a) {
-    currentPosition.x = currentPosition.x - 1
+    position.x = position.x - 1
   }
 
-  return currentPosition
+  return position
 }
 
 const updateAngle = (playerPosition: Player['position']) => {

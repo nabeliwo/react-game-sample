@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { SceneName } from '../type'
+import { stageRect } from '../constants'
 import { Intro } from './scenes/Intro'
 import { Stage } from './scenes/Stage'
 import { Result } from './scenes/Result'
@@ -15,9 +16,11 @@ export const Scene = () => {
   return (
     <div className="container">
       <div className="box">
-        {scene === 'intro' && <Intro onClickChangeScene={handleClickChangeScene} />}
-        {scene === 'stage' && <Stage onClickChangeScene={handleClickChangeScene} />}
-        {scene === 'result' && <Result onClickChangeScene={handleClickChangeScene} />}
+        <div id="scene" className="scene" style={{ width: stageRect.width, height: stageRect.height }}>
+          {scene === 'intro' && <Intro onClickChangeScene={handleClickChangeScene} />}
+          {scene === 'stage' && <Stage onClickChangeScene={handleClickChangeScene} />}
+          {scene === 'result' && <Result onClickChangeScene={handleClickChangeScene} />}
+        </div>
       </div>
     </div>
   )

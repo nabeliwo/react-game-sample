@@ -8,11 +8,11 @@ type Props = {
 
 export const Result: FC<Props> = ({ onClickChangeScene }) => {
   return (
-    <div className="scene">
+    <>
       <p className="title">result</p>
       <button className="button" onClick={() => onClickChangeScene('intro')}>
         Go to intro
       </button>
-    </div>
+    </>
   )
 }

@@ -9,8 +9,7 @@
   box-sizing: border-box;
 }
 .box {
-  width: 900px;
-  height: 600px;
+  overflow: hidden;
   border: 1px solid #000;
 }
 .scene {
@@ -18,8 +17,6 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 900px;
-  height: 600px;
 }
 .title {
   margin: 250px 0 100px;
@@ -45,9 +42,10 @@
 }
 
 .player {
+  z-index: 3;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 450px;
+  left: 300px;
   width: 21px;
   height: 21px;
   border-radius: 50%;
@@ -62,4 +60,18 @@
   height: 1px;
   background-color: #000;
   content: "";
+}
+.bullet {
+  z-index: 2;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #0095ff;
+}
+.enemy {
+  z-index: 1;
+  position: absolute;
+  border-radius: 50%;
+  width: 21px;
+  height: 21px;
+  background-color: #f00;
 }
