@@ -1,16 +1,14 @@
 import React, { FC } from 'react'
 
-import { SceneName } from '../../type'
-
 type Props = {
-  onClickChangeScene: (name: SceneName) => void
+  onClickRetry: () => void
 }
 
-export const Result: FC<Props> = ({ onClickChangeScene }) => {
+export const Result: FC<Props> = ({ onClickRetry }) => {
   return (
     <>
       <p className="title">result</p>
-      <button className="button" onClick={() => onClickChangeScene('intro')}>
+      <button className="button" onClick={onClickRetry}>
         Go to intro
       </button>
     </>

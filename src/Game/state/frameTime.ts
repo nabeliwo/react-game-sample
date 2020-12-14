@@ -2,6 +2,7 @@ export type FrameTime = {
   fps: number
   lastStamp: number
   framesCount: number
+  totalFrames: number
 }
 
 export const updateFrameTime = (frameTime: FrameTime) => {
@@ -13,6 +14,7 @@ export const updateFrameTime = (frameTime: FrameTime) => {
       fps: frameTime.framesCount,
       lastStamp: currentStamp,
       framesCount: 0,
+      totalFrames: frameTime.totalFrames + 1,
     }
   } else {
     const newFramesCount = frameTime.framesCount + 1
@@ -20,6 +22,7 @@ export const updateFrameTime = (frameTime: FrameTime) => {
     return {
       ...frameTime,
       framesCount: newFramesCount,
+      totalFrames: frameTime.totalFrames + 1,
     }
   }
 }

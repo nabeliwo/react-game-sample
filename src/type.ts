@@ -1,5 +1,3 @@
-export type SceneName = 'intro' | 'stage' | 'result'
-
 export type Character = {
   position: {
     x: number

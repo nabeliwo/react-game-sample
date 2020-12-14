@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 .box {
-  overflow: hidden;
+  /* overflow: hidden; */
   border: 1px solid #000;
 }
 .scene {
@@ -18,16 +18,32 @@
   align-items: center;
   flex-direction: column;
 }
-.title {
-  margin: 250px 0 100px;
+.intro__title {
+  margin: 100px 0 40px;
+  padding: 0 50px;
   font-size: 30px;
+  text-align: center;
+  line-height: 1.4;
 }
-.button {
+.intro__button {
+  margin-bottom: 100px;
   border: 1px solid #000;
   font-size: 26px;
   padding: 10px 20px;
   background-color: #eee;
   cursor: pointer;
+}
+.intro__description {
+  display: inline-block;
+  font-size: 20px;
+  text-align: left;
+  line-height: 1.4;
+}
+.count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;
 }
 .fps {
   position: fixed;
@@ -46,15 +62,14 @@
   position: absolute;
   top: 450px;
   left: 300px;
-  width: 21px;
-  height: 21px;
   border-radius: 50%;
   border: 1px solid #000;
   background-color: #fff;
+  box-sizing: border-box;
 }
 .player:after {
   position: absolute;
-  top: 10px;
+  top: 9px;
   right: 0;
   width: 10px;
   height: 1px;
@@ -71,7 +86,5 @@
   z-index: 1;
   position: absolute;
   border-radius: 50%;
-  width: 21px;
-  height: 21px;
   background-color: #f00;
 }

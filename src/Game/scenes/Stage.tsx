@@ -1,16 +1,15 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { SceneName } from '../../type'
-import { bulletSize } from '../../constants'
+import { bulletSize, characterSize } from '../../constants'
 import { GameState, initialGameState, updateGameState } from '../state/gameState'
 
 const MS_PER_FRAME = 15
 
 type Props = {
-  onClickChangeScene: (name: SceneName) => void
+  onGameOvered: () => void
 }
 
-export const Stage: FC<Props> = ({ onClickChangeScene }) => {
+export const Stage: FC<Props> = ({ onGameOvered }) => {
   const [gameState, setGameState] = useState<GameState>(initialGameState)
   const { frameTime, player, bullets, enemies } = gameState
 
@@ -28,13 +27,19 @@ export const Stage: FC<Props> = ({ onClickChangeScene }) => {
       clearTimeout(timerID)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onClickChangeScene])
+  }, [onGameOvered])
 
   return (
     <>
       <div
         className="player"
-        style={{ top: player.position.y, left: player.position.x, transform: `rotate(${player.angle}deg)` }}
+        style={{
+          top: player.position.y,
+          left: player.position.x,
+          transform: `rotate(${player.angle}deg)`,
+          width: characterSize,
+          height: characterSize,
+        }}
       />
 
       <ul>
@@ -49,14 +54,13 @@ export const Stage: FC<Props> = ({ onClickChangeScene }) => {
 
       <ul>
         {enemies.map((enemy, i) => (
-          <li key={i} className="enemy" style={{ top: enemy.position.y, left: enemy.position.x }} />
+          <li
+            key={i}
+            className="enemy"
+            style={{ top: enemy.position.y, left: enemy.position.x, width: characterSize, height: characterSize }}
+          />
         ))}
       </ul>
-
-      {/* <p className="title">stage</p>
-      <button className="button" onClick={() => onClickChangeScene('result')}>
-        Go to stage
-      </button> */}
 
       <p className="fps">{frameTime.fps} FPS</p>
     </>
