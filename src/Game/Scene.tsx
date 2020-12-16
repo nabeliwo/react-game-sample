@@ -18,7 +18,7 @@ export const Scene = () => {
           {scene === 'intro' && <Intro onClickStart={() => setScene('countDown')} />}
           {scene === 'countDown' && <CountDown onCountOvered={() => setScene('stage')} />}
           {scene === 'stage' && <Stage onGameOvered={() => setScene('result')} />}
-          {scene === 'result' && <Result onClickRetry={() => setScene('result')} />}
+          {scene === 'result' && <Result onClickRetry={() => setScene('countDown')} />}
         </div>
       </div>
     </div>

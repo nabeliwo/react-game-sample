@@ -56,7 +56,6 @@
   color: #2ac3ff;
   text-align: center;
 }
-
 .player {
   z-index: 3;
   position: absolute;
@@ -87,4 +86,22 @@
   position: absolute;
   border-radius: 50%;
   background-color: #f00;
+}
+.result__title {
+  margin: 100px 0 60px;
+  font-size: 70px;
+  text-align: center;
+  line-height: 1.4;
+}
+.result__point {
+  margin-bottom: 80px;
+  font-size: 50px;
+  text-align: center;
+}
+.result__button {
+  border: 1px solid #000;
+  font-size: 26px;
+  padding: 10px 20px;
+  background-color: #eee;
+  cursor: pointer;
 }

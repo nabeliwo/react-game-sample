@@ -1,4 +1,5 @@
 import { Character } from '../../type'
+import { getNextPosition } from '../../libs/getNextPosition'
 import { characterSize, stageRect } from '../../constants'
 
 export type Enemy = Character
@@ -79,22 +80,13 @@ const getEnemy = (playerPosition: Character['position']) => {
   return enemy
 }
 
-const getNextPosition = (character: Character) => {
-  const radian = (character.angle * Math.PI) / 180
-  const x = character.position.x + Math.cos(radian) * ENEMY_SPEED
-  const y = character.position.y + Math.sin(radian) * ENEMY_SPEED
-
-  return { x, y }
-}
-
-export const updateEnemies = (currentEnemies: Enemy[], player: Character, currentFrame: number) => {
+export const updateEnemies = (currentEnemies: Enemy[], player: Character, currentFrame: number, gameOver: () => void) => {
   const enemies = [...currentEnemies]
 
   throttle(currentFrame, () => {
     enemies.push(getEnemy(player.position))
   })
 
-  const nextPlayerPosition = getNextPosition(player)
   const movedEnemies: Enemy[] = []
 
   enemies.forEach((enemy) => {
@@ -103,18 +95,18 @@ export const updateEnemies = (currentEnemies: Enemy[], player: Character, curren
       y: enemy.position.y + characterRadius,
     }
     const playerCenter = {
-      x: nextPlayerPosition.x + characterRadius,
-      y: nextPlayerPosition.y + characterRadius,
+      x: player.position.x + characterRadius,
+      y: player.position.y + characterRadius,
     }
     const a = enemyCenter.x - playerCenter.x
     const b = enemyCenter.y - playerCenter.y
     const c = Math.sqrt(a * a + b * b)
 
     if (c <= characterRadius + characterRadius) {
-      alert('ゲームオーバー')
+      gameOver()
     }
 
-    const { x, y } = getNextPosition(enemy)
+    const { x, y } = getNextPosition(enemy, ENEMY_SPEED)
 
     if (y + characterSize < 0 || x > stageRect.width || y > stageRect.height || x + characterSize < 0) {
       return

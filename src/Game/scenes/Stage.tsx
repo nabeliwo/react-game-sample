@@ -10,14 +10,21 @@ type Props = {
 }
 
 export const Stage: FC<Props> = ({ onGameOvered }) => {
+  const [gameOvered, setGameOvered] = useState(false)
   const [gameState, setGameState] = useState<GameState>(initialGameState)
   const { frameTime, player, bullets, enemies } = gameState
+
+  useEffect(() => {
+    if (gameOvered) {
+      onGameOvered()
+    }
+  }, [gameOvered, onGameOvered])
 
   useEffect(() => {
     let timerID: number
 
     function step() {
-      setGameState((current) => updateGameState(current))
+      setGameState((current) => updateGameState(current, () => setGameOvered(true)))
       timerID = window.setTimeout(step, MS_PER_FRAME)
     }
 
@@ -28,6 +35,10 @@ export const Stage: FC<Props> = ({ onGameOvered }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onGameOvered])
+
+  if (gameOvered) {
+    return null
+  }
 
   return (
     <>
@@ -42,25 +53,21 @@ export const Stage: FC<Props> = ({ onGameOvered }) => {
         }}
       />
 
-      <ul>
-        {bullets.map((bullet, i) => (
-          <li
-            key={i}
-            className="bullet"
-            style={{ top: bullet.position.y, left: bullet.position.x, width: bulletSize, height: bulletSize }}
-          />
-        ))}
-      </ul>
+      {bullets.map((bullet, i) => (
+        <div
+          key={i}
+          className="bullet"
+          style={{ top: bullet.position.y, left: bullet.position.x, width: bulletSize, height: bulletSize }}
+        />
+      ))}
 
-      <ul>
-        {enemies.map((enemy, i) => (
-          <li
-            key={i}
-            className="enemy"
-            style={{ top: enemy.position.y, left: enemy.position.x, width: characterSize, height: characterSize }}
-          />
-        ))}
-      </ul>
+      {enemies.map((enemy, i) => (
+        <div
+          key={i}
+          className="enemy"
+          style={{ top: enemy.position.y, left: enemy.position.x, width: characterSize, height: characterSize }}
+        />
+      ))}
 
       <p className="fps">{frameTime.fps} FPS</p>
     </>

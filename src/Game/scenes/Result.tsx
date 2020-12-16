@@ -7,9 +7,10 @@ type Props = {
 export const Result: FC<Props> = ({ onClickRetry }) => {
   return (
     <>
-      <p className="title">result</p>
-      <button className="button" onClick={onClickRetry}>
-        Go to intro
+      <p className="result__title">Game Over</p>
+      <p className="result__point">120 pt</p>
+      <button className="result__button" onClick={onClickRetry}>
+        RETRY
       </button>
     </>
   )

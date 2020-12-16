@@ -28,11 +28,11 @@ export const initialGameState: GameState = {
   enemies: [],
 }
 
-export const updateGameState = (state: GameState): GameState => {
+export const updateGameState = (state: GameState, gameOver: () => void): GameState => {
   const frameTime = updateFrameTime(state.frameTime)
   const player = updatePlayer(state.player)
   const bullets = updateBullets(state.bullets, player)
-  const enemies = updateEnemies(state.enemies, state.player, frameTime.totalFrames)
+  const enemies = updateEnemies(state.enemies, player, frameTime.totalFrames, gameOver)
 
   return {
     frameTime,

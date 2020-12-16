@@ -1,4 +1,5 @@
 import { Character } from '../../type'
+import { getNextPosition } from '../../libs/getNextPosition'
 import { bulletSize, stageRect } from '../../constants'
 import { Player } from './player'
 
@@ -28,9 +29,7 @@ export const updateBullets = (currentBullets: Bullet[], player: Player) => {
   const movedBullets: Bullet[] = []
 
   bullets.forEach((bullet) => {
-    const radian = (bullet.angle * Math.PI) / 180
-    const x = bullet.position.x + Math.cos(radian) * BULLET_SPEED
-    const y = bullet.position.y + Math.sin(radian) * BULLET_SPEED
+    const { x, y } = getNextPosition(bullet, BULLET_SPEED)
 
     if (y + bulletSize < 0 || x > stageRect.width || y > stageRect.height || x + bulletSize < 0) return
 
