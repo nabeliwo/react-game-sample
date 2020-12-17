@@ -1,6 +1,7 @@
 import { Character } from '../../type'
 import { getNextPosition } from '../../libs/getNextPosition'
 import { bulletSize, stageRect } from '../../constants'
+import { getArea } from '../../libs/getArea'
 import { Player } from './player'
 
 export type Bullet = Character & {
@@ -39,6 +40,7 @@ export const updateBullets = (currentBullets: Bullet[], player: Player) => {
         x,
         y,
       },
+      area: getArea({ x, y }),
     })
   })
 

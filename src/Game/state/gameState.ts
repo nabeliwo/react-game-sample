@@ -2,6 +2,7 @@ import { FrameTime, updateFrameTime } from './frameTime'
 import { Player, updatePlayer } from './player'
 import { Bullet, updateBullets } from './bullets'
 import { Enemy, updateEnemies } from './enemies'
+import { judgeCollision } from './judgeCollision'
 
 export type GameState = {
   frameTime: FrameTime
@@ -23,6 +24,7 @@ export const initialGameState: GameState = {
       y: 290,
     },
     angle: 0,
+    area: [],
   },
   bullets: [],
   enemies: [],
@@ -31,8 +33,12 @@ export const initialGameState: GameState = {
 export const updateGameState = (state: GameState, gameOver: () => void): GameState => {
   const frameTime = updateFrameTime(state.frameTime)
   const player = updatePlayer(state.player)
-  const bullets = updateBullets(state.bullets, player)
-  const enemies = updateEnemies(state.enemies, player, frameTime.totalFrames, gameOver)
+  const { bullets, enemies } = judgeCollision(
+    player,
+    updateBullets(state.bullets, player),
+    updateEnemies(state.enemies, player, frameTime.totalFrames),
+    gameOver,
+  )
 
   return {
     frameTime,

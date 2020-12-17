@@ -1,5 +1,6 @@
 import { Character } from '../../type'
 import { characterSize, stageRect } from '../../constants'
+import { getArea } from '../../libs/getArea'
 
 export type Player = Character
 
@@ -40,8 +41,11 @@ const updateAngle = (playerPosition: Player['position']) => {
 }
 
 export const updatePlayer = (player: Player) => {
+  const newPosition = updatePosition(player.position)
+
   return {
-    position: updatePosition(player.position),
+    position: newPosition,
     angle: updateAngle(player.position),
+    area: getArea(newPosition),
   }
 }

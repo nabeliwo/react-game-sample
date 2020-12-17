@@ -1,11 +1,11 @@
 import { Character } from '../../type'
-import { getNextPosition } from '../../libs/getNextPosition'
 import { characterSize, stageRect } from '../../constants'
+import { getNextPosition } from '../../libs/getNextPosition'
+import { getArea } from '../../libs/getArea'
 
 export type Enemy = Character
 
 const ENEMY_SPEED = 4
-const characterRadius = (characterSize - 1) / 2
 const startPositions = ['top', 'right', 'bottom', 'left']
 
 const throttle = (currentFrame: number, cb: () => void) => {
@@ -51,6 +51,7 @@ const getEnemy = (playerPosition: Character['position']) => {
       y: 0,
     },
     angle: 0,
+    area: [],
   }
 
   switch (startPosition) {
@@ -80,7 +81,7 @@ const getEnemy = (playerPosition: Character['position']) => {
   return enemy
 }
 
-export const updateEnemies = (currentEnemies: Enemy[], player: Character, currentFrame: number, gameOver: () => void) => {
+export const updateEnemies = (currentEnemies: Enemy[], player: Character, currentFrame: number) => {
   const enemies = [...currentEnemies]
 
   throttle(currentFrame, () => {
@@ -90,22 +91,6 @@ export const updateEnemies = (currentEnemies: Enemy[], player: Character, curren
   const movedEnemies: Enemy[] = []
 
   enemies.forEach((enemy) => {
-    const enemyCenter = {
-      x: enemy.position.x + characterRadius,
-      y: enemy.position.y + characterRadius,
-    }
-    const playerCenter = {
-      x: player.position.x + characterRadius,
-      y: player.position.y + characterRadius,
-    }
-    const a = enemyCenter.x - playerCenter.x
-    const b = enemyCenter.y - playerCenter.y
-    const c = Math.sqrt(a * a + b * b)
-
-    if (c <= characterRadius + characterRadius) {
-      gameOver()
-    }
-
     const { x, y } = getNextPosition(enemy, ENEMY_SPEED)
 
     if (y + characterSize < 0 || x > stageRect.width || y > stageRect.height || x + characterSize < 0) {
@@ -118,6 +103,7 @@ export const updateEnemies = (currentEnemies: Enemy[], player: Character, curren
         x,
         y,
       },
+      area: getArea({ x, y }),
     })
   })
 
