@@ -17,6 +17,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  user-select: none;
 }
 .intro__title {
   margin: 100px 0 40px;
@@ -92,13 +93,11 @@
   font-size: 70px;
   text-align: center;
   line-height: 1.4;
-  user-select: none;
 }
 .result__point {
   margin-bottom: 80px;
   font-size: 50px;
   text-align: center;
-  user-select: none;
 }
 .result__button {
   border: 1px solid #000;

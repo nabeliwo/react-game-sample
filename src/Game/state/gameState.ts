@@ -9,6 +9,7 @@ export type GameState = {
   player: Player
   bullets: Bullet[]
   enemies: Enemy[]
+  defeatNum: number
 }
 
 export const initialGameState: GameState = {
@@ -28,16 +29,17 @@ export const initialGameState: GameState = {
   },
   bullets: [],
   enemies: [],
+  defeatNum: 0,
 }
 
-export const updateGameState = (state: GameState, gameOver: () => void): GameState => {
+export const updateGameState = (state: GameState, gameOver: (score: number) => void): GameState => {
   const frameTime = updateFrameTime(state.frameTime)
   const player = updatePlayer(state.player)
-  const { bullets, enemies } = judgeCollision(
+  const { bullets, enemies, defeatNum } = judgeCollision(
     player,
     updateBullets(state.bullets, player),
     updateEnemies(state.enemies, player, frameTime.totalFrames),
-    gameOver,
+    () => gameOver(state.defeatNum * 100 + frameTime.totalFrames),
   )
 
   return {
@@ -45,5 +47,6 @@ export const updateGameState = (state: GameState, gameOver: () => void): GameSta
     player,
     bullets,
     enemies,
+    defeatNum: state.defeatNum + defeatNum,
   }
 }

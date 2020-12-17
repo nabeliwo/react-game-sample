@@ -30,6 +30,7 @@ const getIsCollide = (enemyPosition: Character['position'], playerPosition: Char
 }
 
 export const judgeCollision = (player: Player, bullets: Bullet[], enemies: Enemy[], gameOver: () => void) => {
+  let defeatNum = 0
   const newEnemies: Enemy[] = []
   const bulletMap = new Map<number, Bullet>()
   const disappearedBulletIds: number[] = []
@@ -81,6 +82,7 @@ export const judgeCollision = (player: Player, bullets: Bullet[], enemies: Enemy
 
           if (isCollided) {
             disappearedBulletIds.push(bullet.id)
+            defeatNum = defeatNum + 1
             break
           }
         }
@@ -98,5 +100,5 @@ export const judgeCollision = (player: Player, bullets: Bullet[], enemies: Enemy
     bulletMap.delete(id)
   }
 
-  return { bullets: Array.from(bulletMap.values()), enemies: newEnemies }
+  return { bullets: Array.from(bulletMap.values()), enemies: newEnemies, defeatNum }
 }

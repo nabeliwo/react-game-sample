@@ -6,25 +6,31 @@ import { GameState, initialGameState, updateGameState } from '../state/gameState
 const MS_PER_FRAME = 15
 
 type Props = {
-  onGameOvered: () => void
+  onGameOvered: (score: number) => void
 }
 
 export const Stage: FC<Props> = ({ onGameOvered }) => {
   const [gameOvered, setGameOvered] = useState(false)
+  const [score, setScore] = useState(0)
   const [gameState, setGameState] = useState<GameState>(initialGameState)
   const { frameTime, player, bullets, enemies } = gameState
 
   useEffect(() => {
     if (gameOvered) {
-      onGameOvered()
+      onGameOvered(score)
     }
-  }, [gameOvered, onGameOvered])
+  }, [score, gameOvered, onGameOvered])
 
   useEffect(() => {
     let timerID: number
 
     function step() {
-      setGameState((current) => updateGameState(current, () => setGameOvered(true)))
+      setGameState((current) =>
+        updateGameState(current, (finalScore) => {
+          setScore(finalScore)
+          setGameOvered(true)
+        }),
+      )
       timerID = window.setTimeout(step, MS_PER_FRAME)
     }
 

@@ -10,6 +10,11 @@ type SceneName = 'intro' | 'countDown' | 'stage' | 'result'
 
 export const Scene = () => {
   const [scene, setScene] = useState<SceneName>('intro')
+  const [score, setScore] = useState(0)
+  const handleGameOvered = (finalScore: number) => {
+    setScene('result')
+    setScore(finalScore)
+  }
 
   return (
     <div className="container">
@@ -17,8 +22,8 @@ export const Scene = () => {
         <div id="scene" className="scene" style={{ width: stageRect.width, height: stageRect.height }}>
           {scene === 'intro' && <Intro onClickStart={() => setScene('countDown')} />}
           {scene === 'countDown' && <CountDown onCountOvered={() => setScene('stage')} />}
-          {scene === 'stage' && <Stage onGameOvered={() => setScene('result')} />}
-          {scene === 'result' && <Result onClickRetry={() => setScene('countDown')} />}
+          {scene === 'stage' && <Stage onGameOvered={handleGameOvered} />}
+          {scene === 'result' && <Result score={score} onClickRetry={() => setScene('countDown')} />}
         </div>
       </div>
     </div>
