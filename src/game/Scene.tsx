@@ -26,6 +26,10 @@ export const Scene = () => {
           {scene === 'result' && <Result score={score} onClickRetry={() => setScene('countDown')} />}
         </div>
       </div>
+
+      <a className="link" href="https://github.com/nabeliwo/react-game-sample">
+        GitHub
+      </a>
     </div>
   )
 }
